@@ -1,147 +1,101 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zpeak</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #103b3f; /* navy kehijau-hijauan */
+      background-color: #103b3f; /* Navy kehijau-hijauan */
       color: white;
+      margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
     }
 
     h1 {
-      margin-top: 20px;
+      margin-top: 40px;
       font-size: 3em;
     }
 
-    p {
+    p.tagline {
+      font-style: italic;
       font-size: 1.2em;
       margin-bottom: 40px;
     }
 
-    .btn-container {
+    .buttons {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      width: 80%;
-      max-width: 350px;
-    }
-
-    .btn {
-      background-color: white;
-      color: #103b3f;
-      border: none;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-bottom: 40px;
     }
 
-    .btn:hover {
-      background-color: #e0f2f1;
-      transform: scale(1.05);
+    button {
+      background-color: #0f5f4a;
+      color: white;
+      font-size: 20px;
+      padding: 12px 30px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      width: 200px;
     }
 
-    .btn img {
-      margin-right: 10px;
+    button:hover {
+      background-color: #078a74;
+    }
+
+    iframe {
+      width: 90%;
+      height: 600px;
+      border: none;
+      margin-bottom: 40px;
     }
 
     footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9em;
+      margin-top: auto;
+      padding: 20px;
+      background-color: #0f2f2f;
+      width: 100%;
+      text-align: center;
       font-style: italic;
-      width: 80%;
-      max-width: 600px;
-    }
-
-    .iframe-container {
-      width: 80%;
-      max-width: 900px;
-      height: 500px;
-      border: 2px solid #103b3f;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 30px;
-    }
-
-    .disabled {
-      background-color: #dcdcdc;
-      cursor: not-allowed;
+      font-size: 1em;
     }
   </style>
 </head>
 <body>
-
   <h1>Zpeak</h1>
-  <p>Zpeak it loud, zpeak it proud!</p>
+  <p class="tagline">Zpeak it loud, zpeak it proud!</p>
 
-  <div class="btn-container">
-    <!-- Folder Materi (iframe) -->
-    <button class="btn" id="folder-materi-btn">Folder Materi</button>
-
-    <!-- Unggah Tugas (iframe) -->
-    <button class="btn" id="unggah-tugas-btn">Unggah Tugas</button>
-
-    <!-- Kehadiran (iframe) -->
-    <button id="kehadiran-btn" class="btn">Kehadiran</button>
+  <div class="buttons">
+    <button onclick="showIframe('lesson')">Lesson</button>
+    <button onclick="showIframe('task')">My Task</button>
+    <button onclick="showIframe('attendance')">Attendance</button>
   </div>
 
-  <!-- Iframe container for content -->
-  <div id="iframe-container" class="iframe-container" style="display:none;">
-    <iframe id="iframe-content" width="100%" height="100%" src="" frameborder="0" style="border: none;"></iframe>
-  </div>
+  <iframe id="iframe" style="display: none;"></iframe>
 
   <footer>
-    “Education is not preparation for life, education is life itself.” — John Dewey
+    “Education is not preparation for life, education is life itself.” – John Dewey
   </footer>
 
   <script>
-    const folderMateriBtn = document.getElementById('folder-materi-btn');
-    const unggahTugasBtn = document.getElementById('unggah-tugas-btn');
-    const kehadiranBtn = document.getElementById('kehadiran-btn');
-    const iframeContainer = document.getElementById('iframe-container');
-    const iframeContent = document.getElementById('iframe-content');
-
-    // Link Google Drive dan Google Form
-    const googleDriveLink = 'https://drive.google.com/drive/folders/1hA30LNK9cMnBsHZl1Bm57sE3ixke4Fja?usp=sharing';
-    const googleFormLink = 'https://docs.google.com/forms/d/e/1FAIpQLSfBu5NTkghnKEAhDa3eUXiKabBEg9RfJOWEu5rdxp1bO-WVxQ/viewform?usp=header';
-    const kehadiranFormLink = 'https://docs.google.com/forms/d/e/1FAIpQLSfkbUm-ZdsxOs9Dww8YpJe5Gm7qlbLsaG1CE-ctG9LiZpgK3Q/viewform?usp=header';
-
-    // Fungsi untuk menampilkan iframe dengan konten yang sesuai
-    function showIframe(url) {
-      iframeContainer.style.display = 'block';
-      iframeContent.src = url;
+    function showIframe(feature) {
+      const iframe = document.getElementById("iframe");
+      if (feature === "lesson") {
+        iframe.src = "https://drive.google.com/embeddedfolderview?id=1hA30LNK9cMnBsHZl1Bm57sE3ixke4Fja#grid";
+      } else if (feature === "task") {
+        iframe.src = "https://docs.google.com/forms/d/e/1FAIpQLSfBu5NTkghnKEAhDa3eUXiKabBEg9RfJOWEu5rdxp1bO-WVxQ/viewform?embedded=true";
+      } else if (feature === "attendance") {
+        iframe.src = "https://docs.google.com/forms/d/e/1FAIpQLSfkbUm-ZdsxOs9Dww8YpJe5Gm7qlbLsaG1CE-ctG9LiZpgK3Q/viewform?embedded=true";
+      }
+      iframe.style.display = "block";
     }
-
-    // Event listeners untuk setiap tombol
-    folderMateriBtn.addEventListener('click', () => {
-      showIframe(googleDriveLink);
-    });
-
-    unggahTugasBtn.addEventListener('click', () => {
-      showIframe(googleFormLink);
-    });
-
-    kehadiranBtn.addEventListener('click', () => {
-      showIframe(kehadiranFormLink);
-    });
   </script>
-
 </body>
 </html>
